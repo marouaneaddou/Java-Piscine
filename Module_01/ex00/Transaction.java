@@ -6,36 +6,31 @@ enum TransferCategory {
 }
 
 class Transaction {
-    private UUID        id;
-    private User        recipient;
-    private User        sender;
-    private long        amount;
+    UUID                id;
+    User                recipient;
+    User                sender;
+    long                amount;
     TransferCategory    category;
 
-    public UUID getId( ) {
-        return this.id;
-    }
-
-    public Transaction( User sender, User recipient, long amount ) {
-        if ( sender.getBalance( ) < amount ) {
-
-            System.err.printf("Not enough balance in %s account\n", sender.getName());
-        }
-        else if ( amount < 0 ) {
+    public void setAmount( long amount ) {
+        if ( amount < 0 ) {
             System.err.println("Transfer amount must be positive");
         }
-        else {
-            this.id = UUID.randomUUID();
-            recipient.setBalance( amount + recipient.getBalance() );
-            sender.setBalance( sender.getBalance() - amount );
+        else 
+            this.amount = amount;
+    }
+
+    public long getAmount( ) {
+        return this.amount;
+    }
+
+    public void transferAmount( ) {
+        if ( this.sender.getBalance( ) < this.amount ) {
+            System.err.printf("Not enough balance\n");
         }
-    }
-
-    public User getSender( ) {
-        return this.sender;
-    }
-
-    public User getRecipient( ) {
-        return this.recipient;
+        else {
+            this.recipient.setBalance( this.amount + this.recipient.getBalance() );
+            this.sender.setBalance( this.sender.getBalance() - this.amount );
+        }
     }
 }
