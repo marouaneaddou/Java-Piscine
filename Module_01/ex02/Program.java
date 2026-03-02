@@ -5,14 +5,27 @@ class Program {
         User sender = new User( "Mohammed", 500 );
         User recipient = new User( "Said", 200 );
 
-        System.out.printf( "Id of sender is %d\n", sender.getUserId() );
-        System.out.printf( "Id of recipient is %d\n\n", recipient.getUserId() );
+        UsersList users = new UserArrayList( );
 
-        UserIdsGenerator id1 = UserIdsGenerator.getInstance();
-        UserIdsGenerator id2 = UserIdsGenerator.getInstance();
-        System.out.println( id1 == id2 );
-        System.out.println( sender == recipient );
+        System.out.printf( "%d\n", users.size() );
 
+        users.addUser( sender );
         
+        System.out.printf( "%d\n", users.size() );
+
+        users.addUser( recipient );
+        
+        System.out.printf( "%d\n", users.size() );
+
+        try {
+            User first = users.getUserById( 1 );
+            System.out.printf( "%s\n", first.getName() );
+
+            User second = users.getUserByIndex( 1 );
+            System.out.printf( "%s\n", second.getName() );
+        }
+        catch ( UserNotFoundException e ) {
+            System.out.printf( "%s\n", e );
+        }
     } 
 }
