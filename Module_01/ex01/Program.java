@@ -10,9 +10,9 @@ class Program {
 
         UserIdsGenerator id1 = UserIdsGenerator.getInstance();
         UserIdsGenerator id2 = UserIdsGenerator.getInstance();
+
         System.out.println( id1 == id2 );
         System.out.println( sender == recipient );
-
         
     } 
 }

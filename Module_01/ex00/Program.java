@@ -16,10 +16,10 @@ class Program {
 
         long amount = 200;
         Transaction transaction = new Transaction( );
-        transaction.setAmount( 600 );
+        transaction.setAmount( 100 );
         if ( transaction.getAmount( ) > 0 ) {
-            transaction.id = UUID.randomUUID();
-            transaction.category = "DEBIT";
+            transaction.id = UUID.randomUUID().toString();
+            transaction.category = TransferCategory.DEBIT;
             transaction.sender = sender;
             transaction.recipient = recipient;
             transaction.transferAmount( );

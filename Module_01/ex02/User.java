@@ -22,4 +22,8 @@ class User {
         return this.balance;
     }
 
+    public void setBalance( long balance ) {
+        this.balance = balance;
+    }
+    
 }

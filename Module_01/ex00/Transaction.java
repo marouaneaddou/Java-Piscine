@@ -6,7 +6,7 @@ enum TransferCategory {
 }
 
 class Transaction {
-    UUID                id;
+    String              id;
     User                recipient;
     User                sender;
     long                amount;

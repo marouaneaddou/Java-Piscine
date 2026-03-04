@@ -6,13 +6,13 @@ enum TransferCategory {
 }
 
 class Transaction {
-    private UUID        id;
+    private String      id;
     private User        recipient;
     private User        sender;
     private long        amount;
     TransferCategory    category;
 
-    public UUID getId( ) {
+    public String getId( ) {
         return this.id;
     }
 
@@ -25,8 +25,8 @@ class Transaction {
             System.err.println("Transfer amount must be positive");
         }
         else {
-            this.id = UUID.randomUUID();
-            this.category = "DEBIT";
+            this.id = UUID.randomUUID().toString();
+            this.category = TransferCategory.DEBIT;
             this.recipient.setBalance( amount + this.recipient.getBalance() );
             this.sender.setBalance( this.sender.getBalance() - amount );
         }
