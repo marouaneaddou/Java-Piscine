@@ -19,7 +19,11 @@ class Program {
                 System.out.printf("-> ");
                 for ( int i = 0; i < 5 && scanner.hasNextInt(); i++  ) {
                     int nb = scanner.nextInt();
-                    if ( nb >= 0 &&  nb < min ) min = nb;
+                    if ( nb <= 0 || nb > 9 ) {
+                        System.out.printf("IllegalArgument");
+                        System.exit( -1 );
+                    }
+                    else if ( nb > 0 &&  nb < min ) min = nb;
                 }
                 String t = scanner.nextLine();
                 if ( counter <= 15 ) gradesOne = gradesOne |  (min << ( counter * 4 ));
