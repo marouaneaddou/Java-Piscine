@@ -6,7 +6,7 @@
 /*   By: maddou <maddou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 16:26:44 by maddou            #+#    #+#             */
-/*   Updated: 2026/07/17 20:37:57 by maddou           ###   ########.fr       */
+/*   Updated: 2026/07/17 20:41:31 by maddou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ class Program {
         return 0;
     }
 
-    private static int[] splitDayTime( String line ) {
-        int[] day_time = new int[2];
-        char[] chars = line.toCharArray();
-        String day = "" + chars[2] + chars[3];
-        day_time[0] = chars[0] - '0';
-        day_time[1] = day_to_index( day );
-        return day_time;
-    }
+    // private static int[] splitDayTime( String line ) {
+    //     int[] day_time = new int[2];
+    //     char[] chars = line.toCharArray();
+    //     String day = "" + chars[2] + chars[3];
+    //     day_time[0] = chars[0] - '0';
+    //     day_time[1] = day_to_index( day );
+    //     return day_time;
+    // }
 
     private static int string_to_int( String word ) {
         int nb = 0;
@@ -127,11 +127,12 @@ class Program {
             System.out.println("|");
         }
     }
+    
     public static void main ( String[] args ) {
         String line;
         Scanner scanner =  new Scanner( System.in );
-        int size_students     = 0;
-        int size_time_day    = 0;
+        int size_students       = 0;
+        int size_time_day       = 0;
         int size_attendance     = 0;
         int cycle               = 0;
         try {
