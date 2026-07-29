@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 class Program {
-    static int sumNumber( int nb ) {
+    private static int sumNumber( int nb ) {
         int sum = 0;
         for ( ; nb != 0; ) {
             sum += nb % 10;
@@ -10,14 +10,13 @@ class Program {
         return sum;
     }
 
-    static int isPrim( int nb ) {
+    private static int isPrim( int nb ) {
         boolean     x   = true;
-        for (  int i = 2; ; i++ ) {
+        for (  int i = 2; i * i <= nb; i++ ) {
             if ( nb % i == 0 ) {
                 x = false;
                 break;
             }
-            if ( i * i >= nb ) break;
         }
         return x == true ? 1 : 0;
     }
@@ -28,6 +27,10 @@ class Program {
         System.out.printf("-> ");
         while ( scanner.hasNext() ) {
             nb = scanner.nextInt();
+            if ( nb < 2 ) {
+                System.out.printf("-> ");
+                continue;
+            }
             if ( nb == 42 ) {
                 System.out.printf( "Count of coffee-reques : %d", count );
                 System.exit( 0 );
