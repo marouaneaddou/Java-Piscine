@@ -12,15 +12,15 @@ class Program {
                 String week = scanner.nextLine();
                 if ( week.equals( "42" ) ) break;
                 else if ( !week.equals( "Week " + (counter + 1))) {
-                    System.out.printf("IllegalArgument");
+                    System.out.println("IllegalArgument");
                     System.exit( -1 );
                 }
-                int min = 10;
+                long min = 10;
                 System.out.printf("-> ");
                 for ( int i = 0; i < 5 && scanner.hasNextInt(); i++  ) {
                     int nb = scanner.nextInt();
                     if ( nb <= 0 || nb > 9 ) {
-                        System.out.printf("IllegalArgument");
+                        System.out.println("IllegalArgument");
                         System.exit( -1 );
                     }
                     else if ( nb > 0 &&  nb < min ) min = nb;
@@ -34,10 +34,10 @@ class Program {
         }
         int minGrade = 0;
         for ( int i = 0; i < counter; i++ ) {
-            if ( counter <= 15 )
+            if ( i <= 15 )
                 minGrade = (int)(( gradesOne >> ( 4 * i )) & 15);
             else 
-                minGrade = (int)(( gradesOne >> ( 4 * i )) & 15);
+                minGrade = (int)(( gradesTwo >> ( 4 * i )) & 15);
             System.out.printf("Week %d ", i + 1 );
             for ( int j = 0; j < minGrade; j++ ) {
                 System.out.printf("=");

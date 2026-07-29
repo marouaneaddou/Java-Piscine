@@ -32,8 +32,8 @@ class Program {
                 continue;
             }
             if ( nb == 42 ) {
-                System.out.printf( "Count of coffee-reques : %d", count );
-                System.exit( 0 );
+                System.out.printf( "Count of coffee-request : %d\n", count );
+                return;
             }
             count += isPrim(sumNumber( nb ));
             System.out.printf("-> ");
