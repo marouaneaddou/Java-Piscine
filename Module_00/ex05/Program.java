@@ -6,7 +6,7 @@
 /*   By: maddou <maddou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 16:26:44 by maddou            #+#    #+#             */
-/*   Updated: 2026/07/17 20:41:31 by maddou           ###   ########.fr       */
+/*   Updated: 2026/07/30 11:49:52 by maddou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ class Program {
     private static final String[]   STUDENT                     =   new String[MAX_STUDENT];
     private static final int        MAX_SESSION_IN_WEEK         =   10;
     private static final int[][]    TIME_DAY                    =   new int[MAX_SESSION_IN_WEEK][2];
-    private static final String[][] ATTENDANCE_NAME_STATUS      =   new String[MAX_STUDENT * MAX_SESSION_IN_WEEK][2];
-    private static final int[][]    ATTENDANCE_TIME_DAY         =   new int[MAX_STUDENT  * MAX_SESSION_IN_WEEK][2];
+    private static final String[][] ATTENDANCE_NAME_STATUS      =   new String[MAX_STUDENT * MAX_SESSION_IN_WEEK * 4][2];
+    private static final int[][]    ATTENDANCE_TIME_DAY         =   new int[MAX_STUDENT  * MAX_SESSION_IN_WEEK * 4][2];
     private static final String[]   days_of_week                =   { "TU", "WE", "TH", "FR", "SA", "SU", "MO" };
 
     private static int day_to_index( String day ) {
@@ -27,15 +27,6 @@ class Program {
         }
         return 0;
     }
-
-    // private static int[] splitDayTime( String line ) {
-    //     int[] day_time = new int[2];
-    //     char[] chars = line.toCharArray();
-    //     String day = "" + chars[2] + chars[3];
-    //     day_time[0] = chars[0] - '0';
-    //     day_time[1] = day_to_index( day );
-    //     return day_time;
-    // }
 
     private static int string_to_int( String word ) {
         int nb = 0;
@@ -72,7 +63,7 @@ class Program {
     
     private static void sort_time_day( int size_of_time_day ) {
         int[] tmp = new int[2];
-        System.out.println(size_of_time_day);
+        // System.out.println(size_of_time_day);
         for ( int i = 0; i < size_of_time_day; i++ ) {
             for ( int j = i + 1; j < size_of_time_day; j++ ) {
                 if ( TIME_DAY[i][1] > TIME_DAY[j][1] ) swap( tmp, i, j);
@@ -128,6 +119,13 @@ class Program {
         }
     }
     
+    private static boolean hasWhitespace( String line ) {
+        for ( char c : line.toCharArray() ) {
+            if ( c == ' ' ) return true;
+        }
+        return false;
+    }
+    
     public static void main ( String[] args ) {
         String line;
         Scanner scanner =  new Scanner( System.in );
@@ -135,50 +133,56 @@ class Program {
         int size_time_day       = 0;
         int size_attendance     = 0;
         int cycle               = 0;
-        try {
-            while ( scanner.hasNextLine() ) {
-                line = scanner.nextLine();
-                if ( cycle == 0 && size_students == 10 ) {
-                    throw new IllegalArgumentException( "Maximum number of students in the timetable is 10" );
-                }
-                else if ( cycle == 1 && size_time_day == 10 ) {
-                    throw new IllegalArgumentException( "Maximum number of session in the week is 10" );
-                }
-                else if ( cycle == 2 && size_attendance == 100 ) {
-                    throw new IllegalArgumentException( "The maximum number of attendance records allowed per month is 100" );
-                }
-                if ( line.equals(".") ) {
-                    cycle++;
-                    if ( cycle == 3 ) break;
-                    continue;
-                }
-                if ( cycle == 0 ) {
-                    if ( line.length() > 10 ) {
-                        throw new IllegalArgumentException( "The name cannot be longer than 10 characters." );
-                    }
-                    else if ( line.contains(" ") ) {
-                        throw new IllegalArgumentException( "The name cannot contain spaceses" );
-                    }
-                    STUDENT[size_students++] = line;
-                }
-                else if ( cycle == 1 ) {
-                    String[] words = split( line, 2 );
-                    TIME_DAY[size_time_day][0] = string_to_int( words[0] );
-                    TIME_DAY[size_time_day++][1] = day_to_index( words[1] );
-                }
-                else if ( cycle == 2 ) {
-                    String[] words = split( line, 4 );
-                    ATTENDANCE_NAME_STATUS[size_attendance][0]                      =   words[0];
-                    ATTENDANCE_NAME_STATUS[size_attendance][1]                      =   words[3];
-                    ATTENDANCE_TIME_DAY[size_attendance][0]                         =   string_to_int(words[1]);
-                    ATTENDANCE_TIME_DAY[size_attendance++][1]                       =   string_to_int(words[2]);
-                }
+        System.out.printf("-> ");
+        while ( scanner.hasNextLine() ) {
+            
+            line = scanner.nextLine();
+            if ( cycle == 0 && size_students == 10 ) {
+                System.out.println( "Maximum number of students in the timetable is 10" );
+                System.exit(-1);
             }
-            sort_time_day( size_time_day );
-            printTable( size_students, size_time_day, size_attendance );
+            else if ( cycle == 1 && size_time_day == 10 ) {
+                System.out.println( "Maximum number of session in the week is 10" );
+                System.exit(-1);
+            }
+            else if ( cycle == 2 && size_attendance == MAX_STUDENT * MAX_SESSION_IN_WEEK * 4) {
+                System.out.printf( "The maximum number of attendance records allowed per month is %d\n", MAX_STUDENT * MAX_SESSION_IN_WEEK * 4 );
+                System.exit(-1);
+            }
+            if ( line.equals(".") ) {
+                cycle++;
+                if ( cycle == 3 ) break;
+                else 
+                    System.out.printf("-> ");
+                continue;
+            }
+            if ( cycle == 0 ) {
+                if ( line.length() > 10 ) {
+                    System.out.println( "The name cannot be longer than 10 characters." );
+                    System.exit(-1);
+                }
+                else if ( hasWhitespace( line ) ) {
+                    System.out.println( "The name cannot contain spaceses" );
+                    System.exit(-1);
+                }
+                STUDENT[size_students++] = line;
+            }
+            else if ( cycle == 1 ) {
+                String[] words = split( line, 2 );
+                TIME_DAY[size_time_day][0] = string_to_int( words[0] );
+                TIME_DAY[size_time_day++][1] = day_to_index( words[1] );
+            }
+            else if ( cycle == 2 ) {
+                String[] words = split( line, 4 );
+                ATTENDANCE_NAME_STATUS[size_attendance][0]                      =   words[0];
+                ATTENDANCE_NAME_STATUS[size_attendance][1]                      =   words[3];
+                ATTENDANCE_TIME_DAY[size_attendance][0]                         =   string_to_int(words[1]);
+                ATTENDANCE_TIME_DAY[size_attendance++][1]                       =   string_to_int(words[2]);
+            }
+            System.out.printf("-> ");
         }
-        catch( Exception e ) {
-            System.err.println(e.getMessage());
-        }
+        sort_time_day( size_time_day );
+        printTable( size_students, size_time_day, size_attendance );
+        scanner.close();
     }
 }

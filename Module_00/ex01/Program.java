@@ -22,5 +22,6 @@ class Program {
             }
         }
         System.out.printf( "%b %d" ,x , i - 1);
+        scanner.close();
     }
 }

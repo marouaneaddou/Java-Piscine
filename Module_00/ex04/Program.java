@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 class Program {
-    static int MAX = 65536;
-    static int[][] topTenFreq( int[] freq ) {
+    final private static int MAX = 65536;
+    private static int[][] topTenFreq( int[] freq ) {
         int[][] top10 = new int[10][2];
         for ( int i = 0; i < MAX; i++ ) {
             if ( freq[i] == 0 ) continue;
@@ -25,7 +25,7 @@ class Program {
         return top10;
     }
 
-    static void printHistogram( int[][] matrix ) {
+    private static void printHistogram( int[][] matrix ) {
         int max = matrix[0][1];
         for (int row = 10; row >= 0; row--) {
             for (int col = 0; col < 10; col++) {
@@ -34,7 +34,7 @@ class Program {
                 if ( height == row ) {
                     System.out.printf("%d  ", matrix[col][1]);
                 }
-                else if (height >= row) {
+                else if (height > row) {
                     System.out.print("#   ");
                 } else {
                     System.out.print("   ");
@@ -48,36 +48,35 @@ class Program {
         System.out.println();
     }
 
-    static void printTopTen( int[][] top10 ) {
+    private static void printTopTen( int[][] top10 ) {
         System.out.println();
         for ( int i = 0; i < 10; i++ ) {
             System.out.printf( "%c %d\n", (char)top10[i][0], top10[i][1]);
         }
     }
-    static void printFreq( int[] freq ) {
+    private static void printFreq( int[] freq ) {
         System.out.println();
         for ( int i = 0; i < MAX; i++ ) {
+            if ( freq[i] == 0 ) continue;
             System.out.printf( "%c %d\n", (char)i, freq[i]);
         }
     }
+
     public static  void main( String[] args ) {
         int freq[] = new int[MAX];
         String line;
         Scanner scanner =  new Scanner( System.in );
-        while (  scanner.hasNextLine() ) {
+        System.out.printf("-> ");
+        if (  scanner.hasNextLine() ) {
             line = scanner.nextLine();
-            if ( line.isEmpty() ){
-                continue;
-            }
             for ( char c : line.toCharArray() ) {
                 freq[(int)c]++;
             }
-            break;
+            // printFreq( freq );
+            int[][] matrix = topTenFreq( freq );
+            // printTopTen( matrix );
+            printHistogram( matrix );
         }
-        // printFreq( freq );
-        int[][] matrix = topTenFreq( freq );
-        // printTopTen( matrix );
-        printHistogram( matrix );
         scanner.close();
     }
 }

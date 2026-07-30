@@ -38,5 +38,6 @@ class Program {
             count += isPrim(sumNumber( nb ));
             System.out.printf("-> ");
         }
+        scanner.close();
     }
 }

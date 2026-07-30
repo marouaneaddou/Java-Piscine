@@ -44,5 +44,6 @@ class Program {
             }
             System.out.printf(">\n");
         }
+        scanner.close();
     }
 }
