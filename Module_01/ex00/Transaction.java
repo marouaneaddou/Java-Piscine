@@ -12,7 +12,7 @@ class Transaction {
     private Integer             amount;      
     private TransferCategory    transferCategory;
 
-    Transaction( ) {
+    public Transaction( ) {
         id = UUID.randomUUID().toString();
     }
     // id 

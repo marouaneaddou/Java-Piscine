@@ -1,11 +1,11 @@
 
 class User {
-    private static Integer          id = 0;
+    private static Integer          id;
     private String                  name;
     private Integer                 balance;
 
-    User( ) {
-        id += 1;
+    public User( ) {
+        this.id = UserIdsGenerator.getInstance().generateId();
     }
     // id
     public Integer getId( ) {

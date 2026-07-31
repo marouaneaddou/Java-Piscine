@@ -1,28 +1,33 @@
 
 class User {
-    private final int         id;
-    private String      name;
-    private long        balance;
-    
-    public User ( String name, long balance) {
-        this.id = UserIdsGenerator.getInstance().generateId();
-        this.name = name;
-        this.balance = balance;
-    }
+    private static Integer          id = 0;
+    private String                  name;
+    private Integer                 balance;
 
-    public int getUserId( ) {
+    User( ) {
+        id += 1;
+    }
+    // id
+    public Integer getId( ) {
         return this.id;
     }
-
+    // Name
+    public void setName( String name ) {
+        this.name = name;
+    }
     public String getName( ) {
         return this.name;
     }
 
-    public long getBalance( ) {
-        return this.balance;
+    // Balance
+    public Integer getBalance( ) {
+        return balance;
     }
-
-    public void setBalance( long balance ) {
+    public void setBalance( Integer balance ) {
+        if ( balance < 0 ) {
+            System.err.println("Balance cannot be negative");
+            return;
+        }
         this.balance = balance;
     }
 }
