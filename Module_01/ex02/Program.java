@@ -1,31 +1,23 @@
 
 class Program {
-    public static void main ( String[] args ) {
-
-        User sender = new User( "Mohammed", 500 );
-        User recipient = new User( "Said", 200 );
-
-        UsersList users = new UserArrayList( );
-
-        System.out.printf( "%d\n", users.size() );
-
-        users.addUser( sender );
-        
-        System.out.printf( "%d\n", users.size() );
-
-        users.addUser( recipient );
-        
-        System.out.printf( "%d\n", users.size() );
-
-        try {
-            User first = users.getUserById( 1 );
-            System.out.printf( "%s\n", first.getName() );
-
-            User second = users.getUserByIndex( 1 );
-            System.out.printf( "%s\n", second.getName() );
+    public static void main( String args[] ){
+        User [] users = new User[10];
+        UsersArrayList userList = new UsersArrayList();
+        Integer i = 0;
+        for ( ; i < 10; i++ ) {
+            users[i] = new User();
         }
-        catch ( UserNotFoundException e ) {
-            System.out.printf( "%s\n", e );
+        for ( i = 0; i < 10; i++ ) {
+            userList.addUser( users[i] );
+            System.out.printf("user by index: %d\n",  userList.getUserByIndex(i).getId() );
         }
+        System.out.printf("size of user list is: %d\n", userList.size() );
+
+        userList.addUser( new User() );
+        System.out.printf("Size of user list is: %d\n", userList.size() );
+
+        System.out.printf("User by id: %d\n",  userList.getUserById(1).getId() );
+
+        System.out.printf("User by index: %d\n",  userList.getUserByIndex(9).getId() );
     } 
 }

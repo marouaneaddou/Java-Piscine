@@ -1,51 +1,50 @@
+
 class UserNotFoundException extends RuntimeException {
-    UserNotFoundException( String msg ) {
-        super( msg );
-    } 
+    UserNotFoundException( ) {
+        super("User not found");
+    }
 }
 
-class  UserArrayList implements UsersList {
-
-    private User[] users;
-    private int count;
-    private int maxSize;
-
-    UserArrayList() {
-        this.maxSize = 2;
-        this.count = 0;
-        this.users = new User[ this.maxSize ];
+class UsersArrayList implements UsersList {
+    User [] users;
+    Integer size;
+    Integer capacity;
+    UsersArrayList( ) {
+        this.capacity = 10;
+        this.size = 0;
+        this.users = new User[ this.capacity ];
     }
 
-    public void addUser( User user ) {
-        if ( count == this.maxSize ) {
-            this.maxSize += this.maxSize / 2;
-            User[] arr = new User[ this.maxSize ];
-            for ( int i = 0; i < count; i++ ) {
-                arr[i] = this.users[i];
+    @Override
+    public void addUser( User user) {
+        if ( user == null ) return;
+        if ( this.size == this.capacity ) {
+            this.capacity += this.capacity / 2;
+            User [] newUsers = new User[this.capacity];
+            for( Integer i = 0; i < size; i++ ) {
+                newUsers[i] = this.users[i];
             }
-            users = arr;
+            this.users = newUsers;
         }
-        users[ count ] = user;
-        count += 1;
+        this.users[size++] = user;
     }
 
-    public User getUserById( int id ) {
-        for ( int i = 0; i < this.count; i++ ) {
-            int x = this.users[i].getUserId( );
-            if (  x == id ) 
-                return this.users[i];
+    @Override
+    public User getUserById( Integer id ) {
+        for ( Integer i = 0; i < this.size; i++ ) {
+            if ( this.users[i].getId() == id ) return this.users[i];
         }
-        throw new UserNotFoundException( "User not found" );
+        throw new UserNotFoundException();
     }
 
-    public User getUserByIndex( int index ) {
-        if ( index < 0 || index > this.count )
-            throw new UserNotFoundException( "User not found" );
-        return users[ index ];
+    @Override
+    public User getUserByIndex( Integer index ) {
+        if ( index < 0 || index >= this.size ) throw new UserNotFoundException();
+        return this.users[ index ];
     }
 
-    public int  size( ) {
-        return this.count;
+    @Override
+    public Integer size( ) {
+        return this.size;
     }
 }
-    

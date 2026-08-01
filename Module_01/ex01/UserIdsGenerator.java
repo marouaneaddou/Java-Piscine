@@ -1,7 +1,7 @@
 
 class UserIdsGenerator {
     private static UserIdsGenerator instance;
-    private Integer id = 1;
+    private Integer id = 0;
     private UserIdsGenerator() {
 
     }
@@ -13,6 +13,6 @@ class UserIdsGenerator {
         return instance;
     }
     public Integer generateId() {
-        return id++;
+        return ++id;
     }
 }

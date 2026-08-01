@@ -1,8 +1,7 @@
 
-
 interface UsersList {
-    public void addUser( User user);
-    public User getUserById( int id );
-    public User getUserByIndex( int index );
-    public int  size( );
+    void addUser( User user );
+    User getUserById( Integer id );
+    User getUserByIndex( Integer index );
+    Integer size( );
 }
