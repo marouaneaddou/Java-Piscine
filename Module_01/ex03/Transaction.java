@@ -1,5 +1,24 @@
 import java.util.UUID;
 
+class UserNullException extends RuntimeException {
+    UserNullException( String msg ) {
+        super( msg );
+    }
+}
+
+class InvalidTransactionTypeException extends RuntimeException {
+    InvalidTransactionTypeException( String msg ) {
+        super( msg );
+    }
+}
+
+class InsufficientBalance extends RuntimeException {
+    InsufficientBalance() {
+        super("Sender has insufficient balance");
+    }
+}
+
+
 enum TransferCategory {
     DEBITS,
     CREDITS
@@ -18,8 +37,8 @@ class Transaction {
 
     public Transaction( User sender, User recipient ) {
         this();
-        this.sender = sender;
-        this.recipient = recipient;
+        this.setSenderUser( sender );
+        this.setRecipientUser( recipient );
     }
     // id 
     public String getId( ) {
@@ -29,8 +48,7 @@ class Transaction {
     // Sender User
     public void setSenderUser( User sender ) {
         if ( sender == null ) {
-            System.err.println("Sender must not be null");
-            return;
+            throw new UserNullException( "Sender must not be null");
         }
         this.sender = sender;
     }
@@ -41,8 +59,7 @@ class Transaction {
     // Recipient User
     public void setRecipientUser( User recipient ) {
         if ( recipient == null ) {
-            System.err.println("Recipient must not be null");
-            return;
+            throw new UserNullException( "Recipient must not be null" );
         }
         this.recipient = recipient;
     } 
@@ -53,16 +70,13 @@ class Transaction {
     // Amount
     public void setAmount( Integer amount ) {
         if ( amount < 0 && this.transferCategory != TransferCategory.CREDITS ) {
-            System.err.println("Negative amount requires CREDITS");
-            return;
+            throw new InvalidTransactionTypeException( "Negative amount requires CREDITS" );
         }
         else if ( amount > 0 && this.transferCategory != TransferCategory.DEBITS) {
-            System.err.println("Positive amount requires DEBITS.");
-            return;
+            throw new InvalidTransactionTypeException( "Positive amount requires DEBITS" );
         }
         else if ( this.sender.getBalance() < amount ) {
-            System.err.println("Sender has insufficient balance");
-            return;
+            throw new InsufficientBalance(); 
         }
         this.amount = amount;
     }
