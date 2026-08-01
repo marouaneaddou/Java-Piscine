@@ -6,9 +6,9 @@ class UserNotFoundException extends RuntimeException {
 }
 
 class UsersArrayList implements UsersList {
-    private User [] users;
-    private Integer size;
-    private Integer capacity;
+    User [] users;
+    Integer size;
+    Integer capacity;
     UsersArrayList( ) {
         this.capacity = 10;
         this.size = 0;
