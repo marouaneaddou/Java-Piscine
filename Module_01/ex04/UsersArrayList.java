@@ -49,6 +49,10 @@ class UsersArrayList implements UsersList {
     }
 
     public User[] getUsers( ) {
-        return this.users;
+        User[] userResonse = new User[this.size];
+        for ( Integer i = 0; i < this.size; i++ ) {
+            userResonse[i] = this.users[i];
+        }
+        return userResonse;
     }
 }

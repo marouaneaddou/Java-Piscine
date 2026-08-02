@@ -11,7 +11,12 @@ class Program {
         transactionService.removeTransaction( senderTransaction[0].getId(), sender.getId() );
 
         for ( Transaction transaction : senderTransaction ) {
-            System.out.printf("sender id %s\nrecipient is %s\n", transaction.getSenderUser().getId(), transaction.getRecipientUser().getId() );
+            System.out.printf("sender name is %s amount %d\nrecipient name is %s\n\n", transaction.getSenderUser().getName(), transaction.getAmount(), transaction.getRecipientUser().getName() );
+        }
+
+        Transaction[] unpairedTransaction = transactionService.checkValidity();
+        for ( Transaction transaction : unpairedTransaction ) {
+            System.out.printf("sender name %s %d\nrecipient is %s\n", transaction.getSenderUser().getName(), transaction.getAmount(), transaction.getRecipientUser().getName() );
         }
     } 
 }
