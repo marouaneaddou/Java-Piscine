@@ -8,7 +8,7 @@ class User {
     private Integer                 id;
     private String                  name;
     private Integer                 balance;
-    private TransactionsList        transactions;
+    private TransactionsLinkedList  transactions;
 
     User( ) {
         id = UserIdsGenerator.getInstance().generateId();
@@ -58,5 +58,8 @@ class User {
             if ( transaction.getId().equals( id )) return true;
         }
         return false;
+    }
+    public Transaction getTransactionById(String id) {
+        return this.transactions.findById(id);
     }
 }

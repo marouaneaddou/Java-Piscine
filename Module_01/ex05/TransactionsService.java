@@ -13,8 +13,13 @@ class TransactionsService {
         return user;
     }
 
+    public User getUserById( Integer id ) {
+        User user = this.users.getUserById( id );
+        return user;
+    }
+
     public Integer getUserBalance( Integer id ) {
-        return users.getUserById( id ).getBalance();
+        return this.getUserById( id ).getBalance();
     }
 
     public void transfer( Integer senderId, Integer recipientId, Integer amount ) {

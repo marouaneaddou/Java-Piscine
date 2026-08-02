@@ -51,8 +51,4 @@ class TransactionsService {
         }
         return unpairedTransaction.toArray();
     }
-
-    public User[] getUsers() {
-        return users.getUsers();
-    }
 } 

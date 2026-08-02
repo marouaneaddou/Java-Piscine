@@ -76,6 +76,17 @@ class TransactionsLinkedList implements TransactionsList {
         return transactions;
     }
 
+    public Transaction findById( String id ) {
+        Node tmp = this.head;
+        while (tmp != null) {
+            if (tmp.transaction.getId().equals(id)) {
+                return tmp.transaction;
+            }
+            tmp = tmp.next;
+        }
+        return null;
+    }
+
     class Node {
         Transaction transaction;
         Node prev;
