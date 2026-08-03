@@ -39,7 +39,9 @@ class Menu {
                         if (this.isDev) {
                             removeTransferById();
                         } else {
-                            System.out.println("Invalid option.");
+                            System.out.println("Exiting...");
+                            this.scanner.close();
+                            System.exit(0);
                         }
                         break;
 
@@ -52,13 +54,18 @@ class Menu {
                         break;
 
                     case 7:
-                        System.out.println("Exiting...");
-                        this.scanner.close();
-                        System.exit(0);
+                        if (this.isDev) {
+                            System.out.println("Exiting...");
+                            this.scanner.close();
+                            System.exit(0);
+                        }
+                        else {
+                            System.out.println("Invalid option.");
+                        }
                         break;
 
                     default:
-                    System.out.println("Invalid choice. Please try again.");
+                        System.out.println("Invalid choice. Please try again.");
                 }
 
             } catch ( InputMismatchException e ) {
