@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.lang.Math;
 
 class Program {
-    private static StringBuffer readFile( FileReader object ) throws IOException, FileNotFoundException{
+    private static String[] readFile( FileReader object ) throws IOException, FileNotFoundException{
         BufferedReader input = new BufferedReader( object );
         String line;
         StringBuffer s = new StringBuffer();
@@ -17,7 +17,8 @@ class Program {
             s.append( line );
             s.append( " " );
         }
-        return s;
+        if ( s.length() == 0 ) return new String[0];
+        return s.toString().split(" ");
     }
 
     private static HashSet<String> occurrenceWords( String[] str1,  String[] str2 ) {
@@ -44,8 +45,8 @@ class Program {
             try {
                 FileReader fileA = new FileReader( args[0] );
                 FileReader fileB = new FileReader( args[1] );
-                String[] dataFileOne = readFile( fileA ).toString().split(" ");
-                String[] dataFileTwo = readFile( fileB ).toString().split(" ");
+                String[] dataFileOne = readFile( fileA );
+                String[] dataFileTwo = readFile( fileB );
                 HashSet<String> words = 
                     occurrenceWords( dataFileOne, dataFileTwo );
                 int size = words.size();
@@ -65,8 +66,12 @@ class Program {
                     sumA += a * a;
                     sumB += b * b;
                 }
-                System.out.printf("Similarity %.2f\n",  numerator / ( Math.sqrt( sumA ) * Math.sqrt( sumB )) );
-            }
+                double denominator = Math.sqrt(sumA) * Math.sqrt(sumB);
+                if ( denominator != 0 && numerator != 0 ) {
+                    System.out.printf("Similarity %.2f\n", numerator / denominator);
+                } else {
+                    System.out.printf("Similarity 0.0\n");
+                }}
             catch ( Exception e ) {
                 System.out.println( e.getMessage() );
             }
