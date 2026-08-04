@@ -1,0 +1,10 @@
+PNG        : 89 50 4E 47 0D 0A 1A 0A
+GIF87a     : 47 49 46 38 37 61
+GIF89a     : 47 49 46 38 39 61
+JPEG       : FF D8 FF
+BMP        : 42 4D
+TIFF_LE    : 49 49 2A 00
+TIFF_BE    : 4D 4D 00 2A
+WEBP       : 52 49 46 46
+ICO        : 00 00 01 00
+JPEG2000   : 00 00 00 0C 6A 50 20 20 0D 0A 87 0A
