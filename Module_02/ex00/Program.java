@@ -24,6 +24,7 @@ class Program {
                     output.write( ext.getBytes() );
                     output.write('\n');
                 }
+                System.out.println("PROCESSED");
             }
             output.close();
         }
